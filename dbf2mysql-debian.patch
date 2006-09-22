@@ -1,0 +1,1109 @@
+--- dbf2mysql-1.14a.orig/debian/changelog
++++ dbf2mysql-1.14a/debian/changelog
+@@ -0,0 +1,137 @@
++dbf2mysql (1.14a-3.1) unstable; urgency=low
++
++  * Non-maintainer upload.
++  * Rebuild against libmysqlclient15-dev; libmysqlclient10-dev hasn't been
++    dropped yet, but hopefully will be for etch.  Closes: #343768.
++    - debian/patches/05_mysql_real_connect.dpatch: use mysql_real_connect(),
++      for libmysqlclient15 compatibility.
++
++ -- Steve Langasek <vorlon@debian.org>  Fri, 17 Feb 2006 16:52:25 -0800
++
++dbf2mysql (1.14a-3) unstable; urgency=low
++
++  * Policy updated to 3.6.1
++  * Patch applied for umlauts.
++    (closes: #213958,#213959)
++  * Using dpatch support now for current and past patches.
++
++ -- Francesco Paolo Lovergine <frankie@debian.org>  Tue,  7 Oct 2003 20:50:07 +0200
++
++dbf2mysql (1.14a-2) unstable; urgency=low
++
++  * Replaced mysql_connect with mysql_real_connect, SQLsock isn't used
++    anymore. (Bart Friederichs).
++  * README touched to reflect changes.
++
++ -- Francesco Paolo Lovergine <frankie@debian.org>  Mon, 24 Feb 2003 18:30:26 +0100
++
++dbf2mysql (1.14a-1) unstable; urgency=low
++
++  * Patch for FoxPro (Christian Eyrich):
++  	According to Erik Bachmanns XBase File Format Description all M Field
++  	Types (including DBF_MTYPE_FPT) contain the block number as 10 digita
++  	ASCII text. So handling it in DBF_MTYPE_FPT files as long value as the
++  	current versions of dbf2mysql do is wrong. What I experienced with the
++  	FoxPro files here confirm this.
++
++  * Patch for MySQL (Bart Friederichs):
++        I changed the dbf2mysql program to being able to enable the
++        local-infile option, that is needed for MySQL > 3.23.49 and >4.0.2. I
++        added an -L option to the command that enables it. It is tested and it
++        works. 
++
++ -- Francesco Paolo Lovergine <frankie@debian.org>  Tue, 11 Feb 2003 14:47:22 +0100
++
++dbf2mysql (1.14-4) unstable; urgency=low
++
++  * Rebuilt to remove /usr/doc link
++  * Policy standard updated.
++
++ -- Francesco Paolo Lovergine <frankie@debian.org>  Wed, 11 Dec 2002 15:20:56 +0100
++
++dbf2mysql (1.14-3) unstable; urgency=low
++
++  * Maintainer email corrected in control file.
++
++ -- Francesco Paolo Lovergine <frankie@debian.org>  Mon, 26 Nov 2001 14:11:27 +0100
++
++dbf2mysql (1.14-2) unstable; urgency=low
++
++  * New maintainer. (closes: #93897)
++
++ -- Francesco Paolo Lovergine <frankie@debian.org>  Tue, 20 Nov 2001 12:25:53 +0100
++
++dbf2mysql (1.14-1) unstable; urgency=high
++
++  * New upstream version, with support for MEMO fields.  Closes: #23719.
++  * dbf2mysql.c: Open temporary file with O_EXCL.
++  * debian/dbf2mysql.1: Updated and converted from POD to plain man so
++    that it can be forwarded upstream.
++  * Switched to debhelper 3.
++  * Conforms to Standards version 3.5.6:
++    * debian/copyright: Added upstream URL.
++    * debian/rules: Support the `debug' build option.
++
++ -- Matej Vela <vela@debian.org>  Sun, 18 Nov 2001 21:45:13 +0100
++
++dbf2mysql (1.10d-3) unstable; urgency=high
++
++  * Maintainer set to Debian QA Group <packages@qa.debian.org>.
++  * Corrected the priority from extra to optional in
++    debian/control.
++
++ -- Adrian Bunk <bunk@fs.tum.de>  Fri, 31 Aug 2001 23:43:44 +0200
++
++dbf2mysql (1.10d-2.0.1) unstable; urgency=low
++
++  * Non-maintainer upload
++  * recompile against current mysql packages to fix Depends: (closes: #43618)
++  * Add libmysql-dev to Build-Depends (closes: #78693)
++
++ -- Steve Langasek <vorlon@debian.org>  Sat, 24 Feb 2001 12:55:00 -0600
++
++dbf2mysql (1.10d-2) unstable; urgency=high
++
++  * if not for frozen, then at least for unstable ..
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Wed, 10 Feb 1999 02:26:53 +0100
++
++dbf2mysql (1.10d-1) frozen unstable; urgency=high
++
++  * re-upload, no changes beside including orig.tar.gz
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Mon, 21 Dec 1998 22:27:22 +0100
++
++dbf2mysql (1.10d-1) frozen unstable contrib; urgency=high
++
++  * new upstream
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Thu,  3 Dec 1998 19:22:25 +0100
++
++dbf2mysql (1.10b-3) stable contrib; urgency=high
++
++  * new compiled against the latest mysql libraries
++    (closes #28892)
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Wed,  2 Sep 1998 00:16:19 +0200
++
++dbf2mysql (1.10b-2) contrib; urgency=low
++
++  * changed the distribution to only contrib ...
++    [Do I ever understand this???]
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Tue, 7 Oct 1997 01:06:43 +0200
++
++dbf2mysql (1.10b-1) unstable contrib; urgency=low
++
++  * moved to contrib distribution, since it depends
++    on non-free mysql (bug ????, Martin Schulze)
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Mon, 6 Oct 1997 22:38:17 +0200
++
++dbf2mysql (1.10b-0) unstable; urgency=low
++
++  * Initial Debian release
++  * Manpage added
++
++ -- Heiko Schlittermann <heiko@lotte.sax.de>  Fri, 1 Aug 1997 09:56:45 +0200
+--- dbf2mysql-1.14a.orig/debian/foxpro.diff
++++ dbf2mysql-1.14a/debian/foxpro.diff
+@@ -0,0 +1,11 @@
++--- dbf2mysql-1.14-4/dbf.c	Sat Jul  8 02:19:51 2000
+++++ dbf.c	Mon Feb  3 13:47:16 2003
++@@ -570,8 +570,6 @@
++ 	    switch(dbh->db_memo)
++ 	    {
++ 	      case DBF_MTYPE_FPT:
++-		blknum = get_long(dbffield);
++-		break;
++ 	      case DBF_MTYPE_DBT3:
++ 	      case DBF_MTYPE_DBT4:
++ 		strncpy(fields[t].db_contents, (char *)dbffield, fields[t].db_flen);
+--- dbf2mysql-1.14a.orig/debian/control
++++ dbf2mysql-1.14a/debian/control
+@@ -0,0 +1,13 @@
++Source: dbf2mysql
++Section: misc
++Priority: optional
++Maintainer: Francesco Paolo Lovergine <frankie@debian.org>
++Standards-Version: 3.6.1
++Build-Depends: debhelper (>= 3), dpatch, libmysqlclient15-dev | libmysqlclient-dev
++
++Package: dbf2mysql
++Architecture: any
++Depends: ${shlibs:Depends}
++Description: xBase <--> MySQL
++ This program takes an xBase file and sends queries to an MySQL server to
++ insert it into an MySQL table and vice versa.
+--- dbf2mysql-1.14a.orig/debian/copyright
++++ dbf2mysql-1.14a/debian/copyright
+@@ -0,0 +1,14 @@
++This is Debian's prepackaged version of the dbf2mysql utility.
++
++Upstream sources were obtained from
++<http://www.mysql.com/Downloads/Contrib/dbf2mysql-1.14.tar.gz>.
++
++The copyright found in the package README:
++
++  Use this piece of software as you want, modify it to suit your needs,
++  but please leave my name in place ok? :)
++
++The authors are:
++
++  Maarten Boekhold <boekhold@cindy.et.tudelft.nl>
++  Michael Widenius <monty@analytikerna.se>
+--- dbf2mysql-1.14a.orig/debian/README.diff
++++ dbf2mysql-1.14a/debian/README.diff
+@@ -0,0 +1,12 @@
++--- ../../dbf2mysql-1.14/README	2000-07-08 02:08:03.000000000 +0200
+++++ /tmp/README	2003-02-24 18:23:49.000000000 +0100
++@@ -84,6 +84,9 @@
++ 
++ -r  Trim trailing and leading whitspaces from CHAR type fields data
++ 
+++-L  Enable LOAD DATA LOCAL INFILE, should be used with MySQL > 3.23.49 and
+++    > 4.0.2
+++
++ Rudimentary read-only support for Visual FoxPro, DB III+, and DB IV memo
++ fields/files has been added.
++ 
+--- dbf2mysql-1.14a.orig/debian/dbf2mysql.1
++++ dbf2mysql-1.14a/debian/dbf2mysql.1
+@@ -0,0 +1,181 @@
++.TH DBF2MYSQL 1 "2001-11-18" "Debian Project"
++
++.SH NAME
++dbf2mysql, mysql2dbf \- convert between xBase and MySQL databases
++
++.SH SYNOPSIS
++.B dbf2mysql
++.RB [ -v [ v ]]
++.RB [ -f ]
++.RB [ -u | -l ]
++.RB [ -n ]
++.RB [ -o
++.IR field [, field ]]
++.RB [ -e
++.IR conversion-file ]
++.RB [ -s
++.IR old-name = new-name [,\c
++.IR old-name = new-name ]]
++.RB [ -i
++.IR field [, field ]]
++.RB [ -d
++.IR database ]
++.RB [ -t
++.IR table ]
++.RB [ -c [ c ]]
++.RB [ -p
++.IR primary ]
++.RB [ -h
++.IR host ]
++.RB [ -F ]
++.RB [ -q ]
++.RB [ -r ]
++.RB [ -x ]
++.RB [ -P
++.IR password ]
++.RB [ -U
++.IR user ]
++.I dbf-file
++.PP
++.B mysql2dbf
++.RB [ -v [ v ]]
++.RB [ -u | -l ]
++.B -d
++.I database
++.B -t
++.I table
++.RB [ -h
++.IR host ]
++.RB [ -q
++.IR query ]
++.RB [ -P
++.IR password ]
++.RB [ -U
++.IR user ]
++.I dbf-file
++
++.SH DESCRIPTION
++.B dbf2mysql
++takes an xBase file and sends queries to an MySQL server to insert it
++into an MySQL table.
++.PP
++.B mysql2dbf
++dumps a MySQL table to a dbf file.
++
++.SH OPTIONS
++.TP
++.B -v
++Produce some status output.
++.TP
++.B -vv
++More verbose.
++.TP
++.B -vvv
++Even more verbose: produce a progress report.
++.TP
++.B -f
++Translate all field names in the xBase file to lowercase.
++.TP
++.B -u
++Translate all text in the xBase file to uppercase.
++.TP
++.B -l
++Translate all text in the xBase file to lowercase.
++.TP
++.B -n
++Allow NULL fields: 'NOT NULL' will be not added in table creation
++statement.
++.TP
++.BI -o " field\fR[,\fPfield\fR[,...]]"
++List fields to insert into MySQL database.  Primary use is to ease
++import of complex dbf files where we want only few fields.  NOTE:
++.B -o
++is processed before substitution
++.RB ( -s ),
++so you have to use dbf field names here.
++.TP
++.BI -e " conversion-file"
++Specify file for CHAR fields conversion.  File format is:
++1st line: number of characters to convert (number of lines).
++Further lines: <char_to_convert> <char_after_conversion>.
++.TP
++.BI -s " old-name\fR=\fPnew-name\fR[,\fPold-name\fR=\fPnew-name\fR[,...]]"
++Takes a list of field name/new field name pairs.  Primary use is to
++avoid conflicts between field names and MySQL reserved keywords.  When
++the new field name is empty, the field is skipped in both the CREATE
++clause and the INSERT clauses, i.e. it will not be present in the MySQL
++table.  For example:
++.IP
++.nf
++-s ORDER=HORDER,REMARKS=,STAT1=STATUS1
++.fi
++.TP
++.BI -i " field\fR[,\fPfield\fR[,...]]"
++List fields to be indexed.  MySQL field names should be used here.
++.TP
++.BI -d " database"
++Select the database to insert into.  Default is 'test'.
++.TP
++.BI -t " table"
++Select the table to insert into.  Default is 'test'.
++.TP
++.BR -c [ c ]
++Create table if one doesn't exist already.  If the table already exists,
++drop it and build a new one.  The default is to insert all data into the
++named table.  If
++.B -cc
++is specified, no records will be inserted.
++.TP
++.B -p " primary"
++Select the primary key.  You have to give the exact field name.
++.TP
++.BI -h " host"
++Select the host to insert into.  Untested.
++.TP
++.B -F
++Fixed length records.  (By default CHAR is saved as VARCHAR.)
++.TP
++.B -q
++.BR dbf2mysql :
++"Quick" mode.  Inserts data via temporary file using 'LOAD DATA INFILE'
++MySQL statement.  This increased insertion speed on my PC 2-2.5 times.
++Also note that during whole 'LOAD DATA' affected table is locked.
++.IP
++.BR mysql2dbf :
++Specify custom query to use.
++.TP
++.B -r
++Trim trailing and leading whitespace from CHAR type fields data.
++.TP
++.B -x
++Start each table with _rec and _timestamp fields.
++.TP
++.BI -P " password"
++Specify password on the MySQL server.
++.TP
++.BI -U " user"
++Specify user on the MySQL server.
++.SH BUGS
++.B mysql2dbf
++can't write MEMO files at this time.
++.PP
++Possibly incorrect field lengths for REAL numbers.
++
++.SH AUTHORS
++Originally written by Maarten Boekhold <boekhold@cindy.et.tudelft.nl>,
++Oct 1995.
++.PP
++Patched for MySQL by Michael Widenius <monty@analytikerna.se>,
++3 Nov 1996.
++.PP
++Manual page written for Debian GNU/Linux from README by
++Heiko Schlittermann <heiko@lotte.sax.de>, Aug 1997; updated by
++Matej Vela <vela@debian.org>, Nov 2001.
++
++.SH COPYRIGHT
++Use this piece of software as you want, modify it to suit your needs,
++but please leave my name in place ok? :)
++
++.SH DISCLAIMER
++The authors do not accept any responsibility for possible damage you get
++as result of using this program.
+--- dbf2mysql-1.14a.orig/debian/mysql.diff
++++ dbf2mysql-1.14a/debian/mysql.diff
+@@ -0,0 +1,174 @@
++--- ../../dbf2mysql-1.14/dbf2mysql.c	2002-12-19 10:34:13.000000000 +0100
+++++ /tmp/dbf2mysql.c	2003-02-24 18:23:44.000000000 +0100
++@@ -9,10 +9,13 @@
++    Fixxed Quick mode insert for blank Numeric fields
++    Modified to use -x flag to add _rec and _timestamp fields to start of record.
++       ( only those lines immediately affect by if(express) (and getopt) )
+++
+++   Bart Friederichs <bart@friesoft.nl> feb 2003
+++   Added MYSQL_OPT_LOCAL_INFILE to options for compatibility with 
+++   	MySQL >3.23.49 and >4.0.2, new option -L enables it
+++   Replaced mysql_connect with mysql_real_connect, SQLsock isn't used anymore
++ */
++ #include <stdio.h>
++-#include <sys/types.h>
++-#include <sys/stat.h>
++ #include <fcntl.h>
++ #include <stdlib.h>
++ #include <unistd.h>
++@@ -22,7 +25,7 @@
++ #include "dbf.h"
++ 
++ int	verbose=0, upper=0, lower=0, create=0, fieldlow=0, var_chars=1;
++-int	express=0;
+++int	express=0, enable_local=0;
++ int	null_fields=0, trim=0, quick=0;
++ char	primary[11];
++ char	*host = NULL;
++@@ -81,7 +84,7 @@
++ 		printf("dbf2mysql %s\n", VERSION);
++ 		printf("usage: dbf2mysql [-h hostname] [-d dbase] [-t table] [-p primary key]\n");
++ 		printf("                 [-o field[,field]] [-s oldname=newname[,oldname=newname]]\n");
++-		printf("                 [-i field[,field]] [-c] [-f] [-F] [-n] [-r] [-u|-l] \n"); 
+++		printf("                 [-i field[,field]] [-c] [-f] [-F] [-n] [-r] [-u|-l] [-L]\n"); 
++ 		printf("                 [-v[v]] [-x] [-q]  [-P password] [-U user] dbf-file\n");
++ }
++ 
++@@ -398,8 +401,7 @@
++ 	else  /* if specified -q create file for 'LOAD DATA' */
++ 	{
++ 	    datafile = tempnam ("/tmp", "d2my");
++-	    tempfile = fdopen (open (datafile, O_WRONLY | O_CREAT | O_EXCL,
++-				     0600), "wt");
+++	    tempfile = fopen (datafile, "wt");
++ 	    if (tempfile == NULL || datafile == NULL)
++ 	    {
++ 		fprintf (stderr, "Cannot open file '%s' for writing\n", datafile);
++@@ -578,7 +580,7 @@
++ 	}
++ 	if (mysql_query(SQLsock, query) == -1) {
++ 	    fprintf(stderr,
++-	  	    "Error sending LOAD DATA INFILE from file '%s'\n", datafile);
+++	  	    "Error sending LOAD DATA LOCAL INFILE from file '%s'\n", datafile);
++ 	    fprintf(stderr,
++ 		    "Detailed report: %s\n",
++ 		    mysql_error(SQLsock));
++@@ -594,7 +596,7 @@
++ int main(int argc, char **argv)
++ {
++ 	int 		i;
++-	MYSQL		*SQLsock,mysql;
+++	MYSQL		mysql;
++ 	extern int 	optind;
++ 	extern char	*optarg;
++ 	char		*query;
++@@ -602,7 +604,7 @@
++ 
++ 	primary[0] = '\0';
++ 
++-	while ((i = getopt(argc, argv, "xqfFrne:lucvi:h:p:d:t:s:o:U:P:")) != EOF) {
+++	while ((i = getopt(argc, argv, "xqLfFrne:lucvi:h:p:d:t:s:o:U:P:")) != EOF) {
++ 		switch (i) {
++ 		        case 'P':
++ 				pass = (char *)strdup(optarg);
++@@ -669,6 +671,9 @@
++ 			case 'o':
++ 				flist = (char *)strdup(optarg);
++ 				break;
+++			case 'L':
+++				enable_local = 1;
+++				break;
++ 			case ':':
++ 				usage();
++ 				printf("missing argument!\n");
++@@ -707,6 +712,7 @@
++ 		       table);
++ 		printf("Number of records: %ld\n", dbh->db_records);
++ 	}
+++
++ 	if (verbose > 1) {
++ 		printf("Name\t\t Length\tDisplay\t Type\n");
++ 		printf("-------------------------------------\n");
++@@ -723,7 +729,20 @@
++ 		printf("Making connection to MySQL-server\n");
++ 	}
++ 
++-	if (!(SQLsock = mysql_connect(&mysql,host,user,pass))) {
+++	mysql_init(&mysql);
+++
+++	if (enable_local == 1) {
+++		if (verbose) {
+++			printf("Setting MySQL option MYSQL_OPT_LOCAL_INFILE\n");
+++		}
+++
+++		if (mysql_options(&mysql, MYSQL_OPT_LOCAL_INFILE, 0)) {
+++		    printf("Setting option not succeeded.");
+++		    exit(1);
+++		}
+++	}
+++
+++	if (!mysql_real_connect(&mysql,host,user,pass, dbase, 0, NULL,0)) {
++ 		fprintf(stderr, "Couldn't get a connection with the ");
++ 		fprintf(stderr, "designated host!\n");
++ 		fprintf(stderr, "Detailed report: %s\n", mysql_error(&mysql));
++@@ -731,23 +750,12 @@
++ 		exit(1);
++ 	}
++ 
++-	if (verbose > 2) {
++-		printf("Selecting database '%s'\n", dbase);
++-	}
++-
++-	if ((mysql_select_db(SQLsock, dbase)) == -1) {
++-		fprintf(stderr, "Couldn't select database %s.\n", dbase);
++-		fprintf(stderr, "Detailed report: %s\n", mysql_error(SQLsock));
++-		mysql_close(SQLsock);
++-		dbf_close(&dbh);
++-		exit(1);
++-	}
++ /* Substitute field names */
++       do_onlyfields(flist, dbh);
++       do_substitute(subarg, dbh);
++ 
++ 	if (!create) {
++-		if (!check_table(SQLsock, table)) {
+++		if (!check_table(&mysql, table)) {
++ 			printf("Table does not exist!\n");
++ 			exit(1);
++ 		}
++@@ -758,30 +766,30 @@
++ 
++ 		if (!(query = (char *)malloc(12 + strlen(table)))) {
++ 			printf("Memory-allocation error in main (drop)!\n");
++-			mysql_close(SQLsock);
+++			mysql_close(&mysql);
++ 			dbf_close(&dbh);
++ 			exit(1);
++ 		}
++ 
++ 		sprintf(query, "DROP TABLE %s", table);
++-		mysql_query(SQLsock, query);
+++		mysql_query(&mysql, query);
++ 		free(query);
++ 
++ /* Build a CREATE-clause
++ */
++-		do_create(SQLsock, table, dbh);
+++		do_create(&mysql, table, dbh);
++ 	}
++ 
++ /* Build an INSERT-clause
++ */
++ 	if (create < 2)
++-	  do_inserts(SQLsock, table, dbh);
+++	  do_inserts(&mysql, table, dbh);
++ 
++ 	if (verbose > 2) {
++ 		printf("Closing up....\n");
++ 	}
++ 
++-    mysql_close(SQLsock);
+++    mysql_close(&mysql);
++     dbf_close(&dbh);
++     exit(0);
++ }
+--- dbf2mysql-1.14a.orig/debian/rules
++++ dbf2mysql-1.14a/debian/rules
+@@ -0,0 +1,97 @@
++#!/usr/bin/make -f
++# Sample debian/rules that uses debhelper.
++# This file is public domain software, originally written by Joey Hess. 
++
++# Uncomment this to turn on verbose mode.
++#export DH_VERBOSE=1
++
++# This is the debhelper compatibility version to use.
++export DH_COMPAT=3
++
++CFLAGS=-O2 -Wall
++ifneq ($(findstring debug,$(DEB_BUILD_OPTIONS)),)
++CFLAGS+=-g
++endif
++
++include /usr/share/dpatch/dpatch.make
++
++build: build-stamp
++build-stamp: patch-stamp
++	dh_testdir
++
++	# Patching
++	
++#	patch <debian/foxpro.diff
++#	patch <debian/mysql.diff
++#	patch <debian/README.diff
++#	patch <debian/u_char.diff
++	
++	# Add here commands to compile the package.
++	$(MAKE) CFLAGS="$(CFLAGS)" MYSQLLIB= STRIP=
++
++	touch build-stamp
++
++clean: myclean unpatch
++myclean:
++	dh_testdir
++	dh_testroot
++	rm -f build-stamp
++
++	# Add here commands to clean up after the build process.
++	-$(MAKE) clean
++
++
++	# Reversing patches
++	 
++#	-patch --reverse <debian/README.diff
++#	-patch --reverse <debian/mysql.diff
++#	-patch --reverse <debian/foxpro.diff
++#	-patch --reverse <debian/u_char.diff
++
++	dh_clean
++
++install: build
++	dh_testdir
++	dh_testroot
++	dh_clean -k
++	dh_installdirs usr/bin
++
++	# Add here commands to install the package into debian/<packagename>
++	install dbf2mysql mysql2dbf debian/dbf2mysql/usr/bin
++
++# Build architecture-independent files here.
++binary-indep: build install
++# We have nothing to do by default.
++
++# Build architecture-dependent files here.
++binary-arch: build install
++	dh_testdir
++	dh_testroot
++#	dh_installdebconf	
++	dh_installdocs README
++	dh_installexamples
++	dh_installmenu
++#	dh_installlogrotate
++#	dh_installemacsen
++#	dh_installpam
++#	dh_installmime
++#	dh_installinit
++	dh_installcron
++	dh_installman debian/dbf2mysql.1
++	dh_installinfo
++#	dh_undocumented
++	dh_installchangelogs
++	dh_link usr/share/man/man1/dbf2mysql.1 usr/share/man/man1/mysql2dbf.1
++	dh_strip
++	dh_compress
++	dh_fixperms
++#	dh_makeshlibs
++	dh_installdeb
++#	dh_perl
++	dh_shlibdeps
++	dh_gencontrol
++	dh_md5sums
++	dh_builddeb
++
++binary: binary-indep binary-arch
++.PHONY: build clean binary-indep binary-arch binary install patch unpatch myclean
+--- dbf2mysql-1.14a.orig/debian/README.Debian
++++ dbf2mysql-1.14a/debian/README.Debian
+@@ -0,0 +1,19 @@
++
++This release of dbf2mysql adds a couple of unofficial patches.
++They are due to Christian Eyrich and Bart Friederichs.
++Apparently upstream is no more active, so I forked sources.
++
++I tagged debian release as 1.14a for this reason.
++
++According to Erik Bachmanns XBase File Format Description all M Field
++Types (including DBF_MTYPE_FPT) contain the block number as 10 digita
++ASCII text. So handling it in DBF_MTYPE_FPT files as long value as the
++current versions of dbf2mysql do is wrong. What Chris experienced with the
++FoxPro files here confirm this.
++
++Bart changed the dbf2mysql program to being able to enable the
++local-infile option, that is needed for MySQL > 3.23.49 and >4.0.2. Bart
++also added an -L option to the command that enables it. 
++It is tested and it works.
++
++-- Francesco P. Lovergine <frankie@debian.org>
+--- dbf2mysql-1.14a.orig/debian/patches/00list
++++ dbf2mysql-1.14a/debian/patches/00list
+@@ -0,0 +1,5 @@
++foxpro
++mysql
++README
++u_char
++05_mysql_real_connect
+--- dbf2mysql-1.14a.orig/debian/patches/foxpro.dpatch
++++ dbf2mysql-1.14a/debian/patches/foxpro.dpatch
+@@ -0,0 +1,37 @@
++#!/bin/sh -e
++## foxpro.dpatch by Francesco Paolo Lovergine <frankie@debian.org>
++##
++## All lines beginning with `## DP:' are a description of the patch.
++## DP: No description.
++
++if [ $# -ne 1 ]; then
++    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++    exit 1
++fi
++
++[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
++patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
++
++case "$1" in
++       -patch) patch $patch_opts -p1 < $0;;
++       -unpatch) patch $patch_opts -p1 -R < $0;;
++        *)
++                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++                exit 1;;
++esac
++
++exit 0
++
++@DPATCH@
++diff -urNad /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/dbf.c dbf2mysql-1.14a/dbf.c
++--- /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/dbf.c	2003-10-07 20:40:57.000000000 +0200
+++++ dbf2mysql-1.14a/dbf.c	2003-10-07 20:41:29.000000000 +0200
++@@ -570,8 +570,6 @@
++ 	    switch(dbh->db_memo)
++ 	    {
++ 	      case DBF_MTYPE_FPT:
++-		blknum = get_long(dbffield);
++-		break;
++ 	      case DBF_MTYPE_DBT3:
++ 	      case DBF_MTYPE_DBT4:
++ 		strncpy(fields[t].db_contents, (char *)dbffield, fields[t].db_flen);
+--- dbf2mysql-1.14a.orig/debian/patches/mysql.dpatch
++++ dbf2mysql-1.14a/debian/patches/mysql.dpatch
+@@ -0,0 +1,200 @@
++#!/bin/sh -e
++## mysql.dpatch by Francesco Paolo Lovergine <frankie@debian.org>
++##
++## All lines beginning with `## DP:' are a description of the patch.
++## DP: No description.
++
++if [ $# -ne 1 ]; then
++    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++    exit 1
++fi
++
++[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
++patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
++
++case "$1" in
++       -patch) patch $patch_opts -p1 < $0;;
++       -unpatch) patch $patch_opts -p1 -R < $0;;
++        *)
++                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++                exit 1;;
++esac
++
++exit 0
++
++@DPATCH@
++diff -urNad /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/dbf2mysql.c dbf2mysql-1.14a/dbf2mysql.c
++--- /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/dbf2mysql.c	2003-10-07 20:46:27.000000000 +0200
+++++ dbf2mysql-1.14a/dbf2mysql.c	2003-10-07 20:46:55.000000000 +0200
++@@ -9,10 +9,13 @@
++    Fixxed Quick mode insert for blank Numeric fields
++    Modified to use -x flag to add _rec and _timestamp fields to start of record.
++       ( only those lines immediately affect by if(express) (and getopt) )
+++
+++   Bart Friederichs <bart@friesoft.nl> feb 2003
+++   Added MYSQL_OPT_LOCAL_INFILE to options for compatibility with 
+++   	MySQL >3.23.49 and >4.0.2, new option -L enables it
+++   Replaced mysql_connect with mysql_real_connect, SQLsock isn't used anymore
++ */
++ #include <stdio.h>
++-#include <sys/types.h>
++-#include <sys/stat.h>
++ #include <fcntl.h>
++ #include <stdlib.h>
++ #include <unistd.h>
++@@ -22,7 +25,7 @@
++ #include "dbf.h"
++ 
++ int	verbose=0, upper=0, lower=0, create=0, fieldlow=0, var_chars=1;
++-int	express=0;
+++int	express=0, enable_local=0;
++ int	null_fields=0, trim=0, quick=0;
++ char	primary[11];
++ char	*host = NULL;
++@@ -81,7 +84,7 @@
++ 		printf("dbf2mysql %s\n", VERSION);
++ 		printf("usage: dbf2mysql [-h hostname] [-d dbase] [-t table] [-p primary key]\n");
++ 		printf("                 [-o field[,field]] [-s oldname=newname[,oldname=newname]]\n");
++-		printf("                 [-i field[,field]] [-c] [-f] [-F] [-n] [-r] [-u|-l] \n"); 
+++		printf("                 [-i field[,field]] [-c] [-f] [-F] [-n] [-r] [-u|-l] [-L]\n"); 
++ 		printf("                 [-v[v]] [-x] [-q]  [-P password] [-U user] dbf-file\n");
++ }
++ 
++@@ -398,8 +401,7 @@
++ 	else  /* if specified -q create file for 'LOAD DATA' */
++ 	{
++ 	    datafile = tempnam ("/tmp", "d2my");
++-	    tempfile = fdopen (open (datafile, O_WRONLY | O_CREAT | O_EXCL,
++-				     0600), "wt");
+++	    tempfile = fopen (datafile, "wt");
++ 	    if (tempfile == NULL || datafile == NULL)
++ 	    {
++ 		fprintf (stderr, "Cannot open file '%s' for writing\n", datafile);
++@@ -578,7 +580,7 @@
++ 	}
++ 	if (mysql_query(SQLsock, query) == -1) {
++ 	    fprintf(stderr,
++-	  	    "Error sending LOAD DATA INFILE from file '%s'\n", datafile);
+++	  	    "Error sending LOAD DATA LOCAL INFILE from file '%s'\n", datafile);
++ 	    fprintf(stderr,
++ 		    "Detailed report: %s\n",
++ 		    mysql_error(SQLsock));
++@@ -594,7 +596,7 @@
++ int main(int argc, char **argv)
++ {
++ 	int 		i;
++-	MYSQL		*SQLsock,mysql;
+++	MYSQL		mysql;
++ 	extern int 	optind;
++ 	extern char	*optarg;
++ 	char		*query;
++@@ -602,7 +604,7 @@
++ 
++ 	primary[0] = '\0';
++ 
++-	while ((i = getopt(argc, argv, "xqfFrne:lucvi:h:p:d:t:s:o:U:P:")) != EOF) {
+++	while ((i = getopt(argc, argv, "xqLfFrne:lucvi:h:p:d:t:s:o:U:P:")) != EOF) {
++ 		switch (i) {
++ 		        case 'P':
++ 				pass = (char *)strdup(optarg);
++@@ -669,6 +671,9 @@
++ 			case 'o':
++ 				flist = (char *)strdup(optarg);
++ 				break;
+++			case 'L':
+++				enable_local = 1;
+++				break;
++ 			case ':':
++ 				usage();
++ 				printf("missing argument!\n");
++@@ -707,6 +712,7 @@
++ 		       table);
++ 		printf("Number of records: %ld\n", dbh->db_records);
++ 	}
+++
++ 	if (verbose > 1) {
++ 		printf("Name\t\t Length\tDisplay\t Type\n");
++ 		printf("-------------------------------------\n");
++@@ -723,7 +729,20 @@
++ 		printf("Making connection to MySQL-server\n");
++ 	}
++ 
++-	if (!(SQLsock = mysql_connect(&mysql,host,user,pass))) {
+++	mysql_init(&mysql);
+++
+++	if (enable_local == 1) {
+++		if (verbose) {
+++			printf("Setting MySQL option MYSQL_OPT_LOCAL_INFILE\n");
+++		}
+++
+++		if (mysql_options(&mysql, MYSQL_OPT_LOCAL_INFILE, 0)) {
+++		    printf("Setting option not succeeded.");
+++		    exit(1);
+++		}
+++	}
+++
+++	if (!mysql_real_connect(&mysql,host,user,pass, dbase, 0, NULL,0)) {
++ 		fprintf(stderr, "Couldn't get a connection with the ");
++ 		fprintf(stderr, "designated host!\n");
++ 		fprintf(stderr, "Detailed report: %s\n", mysql_error(&mysql));
++@@ -731,23 +750,12 @@
++ 		exit(1);
++ 	}
++ 
++-	if (verbose > 2) {
++-		printf("Selecting database '%s'\n", dbase);
++-	}
++-
++-	if ((mysql_select_db(SQLsock, dbase)) == -1) {
++-		fprintf(stderr, "Couldn't select database %s.\n", dbase);
++-		fprintf(stderr, "Detailed report: %s\n", mysql_error(SQLsock));
++-		mysql_close(SQLsock);
++-		dbf_close(&dbh);
++-		exit(1);
++-	}
++ /* Substitute field names */
++       do_onlyfields(flist, dbh);
++       do_substitute(subarg, dbh);
++ 
++ 	if (!create) {
++-		if (!check_table(SQLsock, table)) {
+++		if (!check_table(&mysql, table)) {
++ 			printf("Table does not exist!\n");
++ 			exit(1);
++ 		}
++@@ -758,30 +766,30 @@
++ 
++ 		if (!(query = (char *)malloc(12 + strlen(table)))) {
++ 			printf("Memory-allocation error in main (drop)!\n");
++-			mysql_close(SQLsock);
+++			mysql_close(&mysql);
++ 			dbf_close(&dbh);
++ 			exit(1);
++ 		}
++ 
++ 		sprintf(query, "DROP TABLE %s", table);
++-		mysql_query(SQLsock, query);
+++		mysql_query(&mysql, query);
++ 		free(query);
++ 
++ /* Build a CREATE-clause
++ */
++-		do_create(SQLsock, table, dbh);
+++		do_create(&mysql, table, dbh);
++ 	}
++ 
++ /* Build an INSERT-clause
++ */
++ 	if (create < 2)
++-	  do_inserts(SQLsock, table, dbh);
+++	  do_inserts(&mysql, table, dbh);
++ 
++ 	if (verbose > 2) {
++ 		printf("Closing up....\n");
++ 	}
++ 
++-    mysql_close(SQLsock);
+++    mysql_close(&mysql);
++     dbf_close(&dbh);
++     exit(0);
++ }
+--- dbf2mysql-1.14a.orig/debian/patches/README.dpatch
++++ dbf2mysql-1.14a/debian/patches/README.dpatch
+@@ -0,0 +1,38 @@
++#!/bin/sh -e
++## README.dpatch by Francesco Paolo Lovergine <frankie@debian.org>
++##
++## All lines beginning with `## DP:' are a description of the patch.
++## DP: No description.
++
++if [ $# -ne 1 ]; then
++    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++    exit 1
++fi
++
++[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
++patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
++
++case "$1" in
++       -patch) patch $patch_opts -p1 < $0;;
++       -unpatch) patch $patch_opts -p1 -R < $0;;
++        *)
++                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++                exit 1;;
++esac
++
++exit 0
++
++@DPATCH@
++diff -urNad /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/README dbf2mysql-1.14a/README
++--- /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/README	2003-10-07 20:48:13.000000000 +0200
+++++ dbf2mysql-1.14a/README	2003-10-07 20:48:43.000000000 +0200
++@@ -84,6 +84,9 @@
++ 
++ -r  Trim trailing and leading whitspaces from CHAR type fields data
++ 
+++-L  Enable LOAD DATA LOCAL INFILE, should be used with MySQL > 3.23.49 and
+++    > 4.0.2
+++
++ Rudimentary read-only support for Visual FoxPro, DB III+, and DB IV memo
++ fields/files has been added.
++ 
+--- dbf2mysql-1.14a.orig/debian/patches/u_char.dpatch
++++ dbf2mysql-1.14a/debian/patches/u_char.dpatch
+@@ -0,0 +1,55 @@
++#!/bin/sh -e
++## u_char.dpatch by Francesco Paolo Lovergine <frankie@debian.org>
++##
++## All lines beginning with `## DP:' are a description of the patch.
++## DP: No description.
++
++if [ $# -ne 1 ]; then
++    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++    exit 1
++fi
++
++[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
++patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
++
++case "$1" in
++       -patch) patch $patch_opts -p1 < $0;;
++       -unpatch) patch $patch_opts -p1 -R < $0;;
++        *)
++                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
++                exit 1;;
++esac
++
++exit 0
++
++@DPATCH@
++diff -urNad /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/dbf.c dbf2mysql-1.14a/dbf.c
++--- /home/frankie/debian/mypkgs/dbf2mysql/dbf2mysql-1.14a/dbf.c	2003-10-07 20:40:57.000000000 +0200
+++++ dbf2mysql-1.14a/dbf.c	2003-10-07 20:48:59.000000000 +0200
++@@ -513,7 +513,7 @@
++ {
++     int     	t, i;
++     u_char  	*dbffield;
++-    char	*end, *sp;
+++    u_char	*end, *sp;
++     double	dblval;
++     long long	int8val;
++     long	int4val;
++@@ -549,7 +549,7 @@
++     {
++ 	switch(fields[t].db_type) {
++ 	  case 'C':		/* Character data */
++-	    end = (char *)&dbffield[fields[t].db_flen - 1];
+++	    end = &dbffield[fields[t].db_flen - 1];
++ 	    i = fields[t].db_flen;
++ 	    while (( i > 0) && ((*end < 0x21)/* || (*end > 0x7E)*/)) {
++ 		end--;
++@@ -659,7 +659,7 @@
++ 	    break;
++ 
++ 	  default:
++-	    end = (char *)dbffield;
+++	    end = dbffield;
++ 	    i = fields[t].db_flen;
++ 	    while (( i > 0) && ((*end < 0x21)/* || (*end > 0x7E)*/)) {
++ 		end++;
+--- dbf2mysql-1.14a.orig/debian/patches/05_mysql_real_connect.dpatch
++++ dbf2mysql-1.14a/debian/patches/05_mysql_real_connect.dpatch
+@@ -0,0 +1,39 @@
++#! /bin/sh /usr/share/dpatch/dpatch-run
++## 05_mysql_real_connect.dpatch by Steve Langasek <vorlon@debian.org>
++##
++## All lines beginning with `## DP:' are a description of the patch.
++## DP: switch from using mysql_connect to mysql_real_connect, for MySQL 5.0
++## DP: compatibility
++
++@DPATCH@
++
++--- dbf2mysql-1.14a.orig/mysql2dbf.c
+++++ dbf2mysql-1.14a/mysql2dbf.c
++@@ -47,7 +47,7 @@
++ 
++ int main(int argc, char **argv) {
++ 	int             i;
++-	MYSQL		*SQLsock,mysql;
+++	MYSQL		*SQLsock;
++ 	extern int      optind;
++ 	extern char     *optarg;
++ 	char            *query = NULL;
++@@ -148,10 +148,16 @@
++ 		printf("Making connection with mySQL-server\n");
++ 	}
++ 
++-    if (!(SQLsock = mysql_connect(&mysql,host,user,pass))) {
+++    if (!(SQLsock = mysql_init(NULL))) {
+++	fprintf(stderr, "Couldn't initialize MySQL handle.\n");
+++        close(dbh->db_fd);
+++        free(dbh);
+++        exit(1);
+++    }
+++    if (!mysql_real_connect(SQLsock,host,user,pass,NULL,0,NULL,0)) {
++         fprintf(stderr, "Couldn't get a connection with the ");
++         fprintf(stderr, "designated host!\n");
++-        fprintf(stderr, "Detailed report: %s\n", mysql_error(&mysql));
+++        fprintf(stderr, "Detailed report: %s\n", mysql_error(SQLsock));
++         close(dbh->db_fd);
++         free(dbh);
++         exit(1);
+--- dbf2mysql-1.14a.orig/debian/u_char.diff
++++ dbf2mysql-1.14a/debian/u_char.diff
+@@ -0,0 +1,29 @@
++--- dbf.c~	Sat Jul  8 02:19:51 2000
+++++ dbf.c	Thu Sep 19 12:41:49 2002
++@@ -513,7 +513,7 @@
++ {
++     int     	t, i;
++     u_char  	*dbffield;
++-    char	*end, *sp;
+++    u_char	*end, *sp;
++     double	dblval;
++     long long	int8val;
++     long	int4val;
++@@ -549,7 +549,7 @@
++     {
++ 	switch(fields[t].db_type) {
++ 	  case 'C':		/* Character data */
++-	    end = (char *)&dbffield[fields[t].db_flen - 1];
+++	    end = &dbffield[fields[t].db_flen - 1];
++ 	    i = fields[t].db_flen;
++ 	    while (( i > 0) && ((*end < 0x21)/* || (*end > 0x7E)*/)) {
++ 		end--;
++@@ -659,7 +670,7 @@
++ 	    break;
++ 
++ 	  default:
++-	    end = (char *)dbffield;
+++	    end = dbffield;
++ 	    i = fields[t].db_flen;
++ 	    while (( i > 0) && ((*end < 0x21)/* || (*end > 0x7E)*/)) {
++ 		end++;
