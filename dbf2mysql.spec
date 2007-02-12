@@ -1,5 +1,5 @@
 Summary:	Tool for creating converters from dbf files to MySQL commands
-Summary(pl.UTF-8):   Narzędzie do tworzenia konwerterów plików dbf na instrukcje MySQL
+Summary(pl.UTF-8):	Narzędzie do tworzenia konwerterów plików dbf na instrukcje MySQL
 Name:		dbf2mysql
 Version:	1.14a
 Release:	1
