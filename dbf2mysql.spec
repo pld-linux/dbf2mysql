@@ -1,5 +1,5 @@
 Summary:	Tool for creating converters from dbf files to MySQL commands
-Summary(pl):	Narzêdzie do tworzenia konwerterów plików dbf na instrukcje MySQL
+Summary(pl.UTF-8):   NarzÄ™dzie do tworzenia konwerterÃ³w plikÃ³w dbf na instrukcje MySQL
 Name:		dbf2mysql
 Version:	1.14a
 Release:	1
@@ -16,9 +16,9 @@ dbf2mysql is a little tool that will display dBase III and IV files.
 You can also use it to convert your old .dbf files for further use
 with MySQL.
 
-%description -l pl
-dbf2mysql jest ma³ym programem wy¶wietlaj±cym zawarto¶æ plików dBase
-III i IV. Mo¿na go wykorzystaæ do konwersji starych plików .dbf do
+%description -l pl.UTF-8
+dbf2mysql jest maÅ‚ym programem wyÅ›wietlajÄ…cym zawartoÅ›Ä‡ plikÃ³w dBase
+III i IV. MoÅ¼na go wykorzystaÄ‡ do konwersji starych plikÃ³w .dbf do
 wykorzystania pod MySQL.
 
 %prep
