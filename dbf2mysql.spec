@@ -5,7 +5,7 @@ Version:	1.14a
 Release:	1
 License:	GPL
 Group:		Applications/Databases
-Source0:	ftp://ftp.debian.org/debian/pool/main/d/dbf2mysql/%{name}_%{version}.orig.tar.gz
+Source0:	http://ftp.debian.org/debian/pool/main/d/dbf2mysql/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	381f69bf6aa5d8dbed8a4ac129d63a6c
 Patch0:		%{name}-debian.patch
 URL:		http://dbf2mysql.sourceforge.net/
