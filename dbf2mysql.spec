@@ -23,7 +23,7 @@ wykorzystania pod MySQL.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 patch -p1 < debian/patches/mysql.dpatch || exit 1
 patch -p1 < debian/patches/05_mysql_real_connect.dpatch || exit 1
 
